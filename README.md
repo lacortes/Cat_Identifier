@@ -1,7 +1,7 @@
-#Cat Pokedex
+# Cat Pokedex
 ***
 
-##Notes on Git
+## Notes on Git
 ***
 These are some helpful steps and commands that you will be using as part of collaborating to the repo.
 
@@ -27,7 +27,7 @@ These are some helpful steps and commands that you will be using as part of coll
   
   2. Next, commit the stages files: ```git commit -m "Meaningful explanation of changes."``` 
 
-  3. Push local branch to master repo (Github): ```git push ``
+  3. Push local branch to master repo (Github): ```git push```
   
   4. You might receive an error that looks similar to: ```git branch --set-upstream my_branch origin/my_branch```
     * Just copy the command and run it. The push should then work.
