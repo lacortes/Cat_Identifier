@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="5dp"
     android:orientation="horizontal"
     android:layout_width="match_parent"
@@ -8,22 +9,26 @@
 
     <TextView
         android:id="@+id/breed"
-        android:textColor="#000000"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="5"
         android:gravity="center"
         android:text="Breed"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+        android:fontFamily="sans-serif-light"
+        android:background="@drawable/button_background"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="#cacaca" />
 
     <TextView
         android:id="@+id/percentage"
-        android:textColor="#000000"
+        android:textColor="#cacaca"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="5"
         android:gravity="center"
         android:text="%"
+        android:fontFamily="sans-serif-light"
+        android:background="@drawable/button_pink_background"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
 </LinearLayout>
