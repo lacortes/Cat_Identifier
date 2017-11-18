@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassResult;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImage;
@@ -40,6 +42,7 @@ public class ResultActivity extends AppCompatActivity {
     private ClassifierResult catList;
     private List<Result> resultList;
     private ResultAdapter resultAdapter;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +50,10 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        progressBar = findViewById(R.id.loading_progress);
         imageView = findViewById(R.id.imageView);
         listView = findViewById(R.id.listView);
+        //listView.setEmptyView(findViewById(R.id.loading_progress));
         topFive = new ArrayList<>();
         resultList = new ArrayList<>();
         // Initialize Visual Recognition client
@@ -90,6 +95,7 @@ public class ResultActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            progressBar.setVisibility(View.GONE);
                             resultAdapter.setData(topFive);
                             listView.setAdapter(resultAdapter);
                         }
