@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "28771792635",
+    "firebase_url": "https://ai-project-cs480.firebaseio.com",
+    "project_id": "ai-project-cs480",
+    "storage_bucket": "ai-project-cs480.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28771792635:android:a892e3a7eb7142da",
+        "android_client_info": {
+          "package_name": "com.application.team480.kitty_pokedex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28771792635-ee4rdetuurs5pf8pe5ps1hr9esnr5er0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs_9Zv5R8IkrHeV0TIR9HfVeaTvx0FK3w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
