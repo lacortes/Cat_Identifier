@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassResult;
@@ -43,6 +44,7 @@ public class ResultActivity extends AppCompatActivity {
     private List<Result> resultList;
     private ResultAdapter resultAdapter;
     private ProgressBar progressBar;
+    private TextView noResultsFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        noResultsFound = findViewById(R.id.noResultsTextView);
         progressBar = findViewById(R.id.loading_progress);
         imageView = findViewById(R.id.imageView);
         listView = findViewById(R.id.listView);
@@ -91,15 +94,24 @@ public class ResultActivity extends AppCompatActivity {
                     createTopFive();
                     // Only update when the picture is a cat and the number of classifiers = 2
                     if (checkValidity() && numOfClassifiers == NUM_OF_CLASSIFIERS) {
-                    // Update the list view
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressBar.setVisibility(View.GONE);
-                            resultAdapter.setData(topFive);
-                            listView.setAdapter(resultAdapter);
-                        }
-                    });
+                        // Update the list view
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.GONE);
+                                resultAdapter.setData(topFive);
+                                listView.setAdapter(resultAdapter);
+                            }
+                        });
+                    } else {
+                        // No results found
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.GONE);
+                                noResultsFound.setVisibility(View.VISIBLE);
+                            }
+                        });
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
