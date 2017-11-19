@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -33,30 +36,33 @@ import java.util.List;
  * Then, creates a file using the path and passes it to Watson to get the result.
  */
 public class ResultActivity extends AppCompatActivity {
+    private final int INFO = 2;
+    private int from;
     private String filePath;
+    private final long MAX_FILE_SIZE = 2097152;
     private VisualRecognition vrClient;
     private ImageView imageView;
     private ListView listView;
-    private List<Result> topFive;
+    private ArrayList<Result> topFive;
     private final int NUM_OF_CLASSIFIERS = 2;
     private ClassifierResult defaultList;
     private ClassifierResult catList;
-    private List<Result> resultList;
+    private ArrayList<Result> resultList;
     private ResultAdapter resultAdapter;
     private ProgressBar progressBar;
     private TextView noResultsFound;
+    private Bitmap photo;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         noResultsFound = findViewById(R.id.noResultsTextView);
         progressBar = findViewById(R.id.loading_progress);
         imageView = findViewById(R.id.imageView);
         listView = findViewById(R.id.listView);
-        //listView.setEmptyView(findViewById(R.id.loading_progress));
         topFive = new ArrayList<>();
         resultList = new ArrayList<>();
         // Initialize Visual Recognition client
@@ -64,67 +70,88 @@ public class ResultActivity extends AppCompatActivity {
                 VisualRecognition.VERSION_DATE_2016_05_20,
                 getString(R.string.api_key)
         );
-        // Receives extras from the main activity
+        // Receives extras from the main/info activity
         Intent intent = getIntent();
         filePath = intent.getStringExtra("filePath");
+        from = intent.getIntExtra("from", 0);
         Log.d("Debug", "Path: " + filePath);
+        Log.d("Debug", "From: " + from);
         // Creates an image using the file path and sets it as the image
-        Bitmap photo = BitmapFactory.decodeFile(filePath);
+        photo = BitmapFactory.decodeFile(filePath);
         imageView.setImageBitmap(photo);
-        // Initializes the list view adapter
-        resultAdapter = new ResultAdapter(this, R.layout.listview_result, topFive);
-        // Creates a file using the file path and compress it so that Watson can take it.
-        final File photoFile = saveBitmapToFile(new File(filePath));
-        // Creates another thread to run Watson
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Parameters are to use custom classifiers
-                    ClassifyOptions options = new ClassifyOptions.Builder()
-                            .imagesFile(photoFile).parameters("{\"classifier_ids\": [\"Cat_977315332\", "
-                                    + "\"default\"]}")
-                            .build();
-                    final ClassifiedImages response = vrClient.classify(options).execute();
-                    ClassifiedImage classifiedImage = response.getImages().get(0);
-                    // Gets the number of classes of the classifier
-                    int numOfClassifiers = classifiedImage.getClassifiers().size();
-                    setLists(classifiedImage);
-                    createResultList();
-                    createTopFive();
-                    // Only update when the picture is a cat and the number of classifiers = 2
-                    if (checkValidity() && numOfClassifiers == NUM_OF_CLASSIFIERS) {
-                        // Update the list view
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressBar.setVisibility(View.GONE);
-                                resultAdapter.setData(topFive);
-                                listView.setAdapter(resultAdapter);
-                            }
-                        });
-                    } else {
-                        // No results found
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressBar.setVisibility(View.GONE);
-                                noResultsFound.setVisibility(View.VISIBLE);
-                            }
-                        });
+        File tempPhotoFile = new File(filePath);
+        Log.d("File Size: ", tempPhotoFile.length() + "");
+        // Check if the size of the file is not over the MAX
+        if (tempPhotoFile.length() > MAX_FILE_SIZE) {
+            Log.d("Size: ","Over max");
+            tempPhotoFile = saveBitmapToFile(tempPhotoFile);
+        }
+        // When coming from the info activity
+        if (from == INFO) {
+            progressBar.setVisibility(View.GONE);
+            topFive = intent.getParcelableArrayListExtra("topFive");
+            resultAdapter = new ResultAdapter(this, R.layout.listview_result, topFive);
+            listView.setAdapter(resultAdapter);
+            // When coming from the main activity
+        } else {
+            // Initializes the list view adapter
+            resultAdapter = new ResultAdapter(this, R.layout.listview_result, topFive);
+            // Creates a file using the file path and compress it so that Watson can take it.
+            final File photoFile = tempPhotoFile;
+            // Creates another thread to run Watson
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        // Parameters are to use custom classifiers
+                        ClassifyOptions options = new ClassifyOptions.Builder()
+                                .imagesFile(photoFile).parameters("{\"classifier_ids\": [\"Cat_977315332\", "
+                                        + "\"default\"]}")
+                                .build();
+                        final ClassifiedImages response = vrClient.classify(options).execute();
+                        Log.d("Response", response.toString());
+                        ClassifiedImage classifiedImage = response.getImages().get(0);
+                        // Gets the number of classes of the classifier
+                        int numOfClassifiers = classifiedImage.getClassifiers().size();
+                        setLists(classifiedImage);
+                        createResultList();
+                        createTopFive();
+                        // Only update when the picture is a cat and the number of classifiers = 2
+                        if (checkValidity() && numOfClassifiers == NUM_OF_CLASSIFIERS) {
+                            // Update the list view
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.setVisibility(View.GONE);
+                                    resultAdapter.setData(topFive);
+                                    listView.setAdapter(resultAdapter);
+                                }
+                            });
+                        } else {
+                            // No results found
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.setVisibility(View.GONE);
+                                    noResultsFound.setVisibility(View.VISIBLE);
+                                }
+                            });
+                        }
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
                     }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 }
-            }
-        });
+            });
+        }
         // When an item of the list view is selected
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Log.i("ResultActivity", "an item is selected");
                 Intent intent = new Intent(ResultActivity.this, InfoActivity.class);
-                intent.putExtra("breed",resultAdapter.getItem(position).getBreed());
+                intent.putExtra("breed", resultAdapter.getItem(position).getBreed());
+                intent.putExtra("filePath", filePath);
+                intent.putParcelableArrayListExtra("topFive", topFive);
                 startActivity(intent);
             }
         });
