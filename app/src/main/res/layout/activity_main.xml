@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:orientation="vertical"
     tools:context="com.application.team480.kitty_pokedex.MainActivity">
-
-    <TextView
-        android:layout_weight="2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        />
-
     <ImageView
-        android:layout_weight="7"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/imageView"
-        />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/cat" />
 
     <Button
-        android:id="@+id/btnCamera"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/Camera"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="99dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/button_background"
         android:text="Camera"
-        />
+        android:textColorLink="@color/colorPrimary"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnGallery"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/Gallery"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="99dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/button_background"
         android:text="Gallery"
-        />
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
