@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\Users\\Orchard\\DL-X\\OneDrive\\CS 480 Software\\Projects\\Cat App\\Cat_Identifier\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v18\\values-v18.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Creator\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.0.1.aar\\5200390ff8044f2a32f6f6c9778d864e\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\oneDrive\\CS 480 Software\\Projects\\Cat App\\Cat_Identifier\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v18\\values-v18.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\theon\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.0.1.aar\\6205addf5816a3c353b2b6eed4179b03\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}
