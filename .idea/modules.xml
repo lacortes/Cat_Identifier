@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\MingKie\AndroidStudioProjects\Cat_Identifier\AI_Project.iml" filepath="C:\Users\MingKie\AndroidStudioProjects\Cat_Identifier\AI_Project.iml" />
       <module fileurl="file://$PROJECT_DIR$/Cat_Identifier.iml" filepath="$PROJECT_DIR$/Cat_Identifier.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

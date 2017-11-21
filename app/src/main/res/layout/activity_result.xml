@@ -4,42 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.application.team480.kitty_pokedex.MainActivity"
-    android:background="@drawable/gold">
+    android:background="@drawable/gold"
+    tools:context="com.application.team480.kitty_pokedex.MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="322dp"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="39dp"
-        app:layout_constraintBottom_toTopOf="@+id/listView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="322dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="39dp"
+            app:layout_constraintBottom_toTopOf="@+id/listView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
     <ProgressBar
         android:id="@+id/loading_progress"
         style="?android:attr/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
-        android:visibility="invisible"
         android:id="@+id/noResultsTextView"
-        android:text="No Results Found"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:fontFamily="sans-serif-light"
-        android:textColor="#cacaca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="No Results Found"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textColor="#cacaca"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ListView
         android:id="@+id/listView"
@@ -50,7 +52,9 @@
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
 
 </android.support.constraint.ConstraintLayout>

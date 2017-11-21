@@ -3,6 +3,12 @@ package com.application.team480.kitty_pokedex;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -61,6 +67,8 @@ public class ResultActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         noResultsFound = findViewById(R.id.noResultsTextView);
         progressBar = findViewById(R.id.loading_progress);
+        progressBar.getIndeterminateDrawable().setColorFilter(0xffff4081, android.graphics.PorterDuff.Mode.MULTIPLY);
+
         imageView = findViewById(R.id.imageView);
         listView = findViewById(R.id.listView);
         topFive = new ArrayList<>();
@@ -78,7 +86,7 @@ public class ResultActivity extends AppCompatActivity {
         Log.d("Debug", "From: " + from);
         // Creates an image using the file path and sets it as the image
         photo = BitmapFactory.decodeFile(filePath);
-        imageView.setImageBitmap(photo);
+        imageView.setImageBitmap(getRoundedCornerBitmap(photo));
         File tempPhotoFile = new File(filePath);
         Log.d("File Size: ", tempPhotoFile.length() + "");
         // Check if the size of the file is not over the MAX
@@ -105,7 +113,7 @@ public class ResultActivity extends AppCompatActivity {
                     try {
                         // Parameters are to use custom classifiers
                         ClassifyOptions options = new ClassifyOptions.Builder()
-                                .imagesFile(photoFile).parameters("{\"classifier_ids\": [\"Cat_977315332\", "
+                                .imagesFile(photoFile).parameters("{\"classifier_ids\": [\"Cat_1616108029\", "
                                         + "\"default\"]}")
                                 .build();
                         final ClassifiedImages response = vrClient.classify(options).execute();
@@ -297,5 +305,26 @@ public class ResultActivity extends AppCompatActivity {
         } catch (Exception e) {
             return null;
         }
+    }
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+        final float roundPx = 60;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
     }
 }
