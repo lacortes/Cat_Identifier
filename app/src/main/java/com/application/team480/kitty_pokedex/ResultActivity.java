@@ -113,7 +113,7 @@ public class ResultActivity extends AppCompatActivity {
                     try {
                         // Parameters are to use custom classifiers
                         ClassifyOptions options = new ClassifyOptions.Builder()
-                                .imagesFile(photoFile).parameters("{\"classifier_ids\": [\"Cat_977315332\", "
+                                .imagesFile(photoFile).parameters("{\"classifier_ids\": [\"Cat_1616108029\", "
                                         + "\"default\"]}")
                                 .build();
                         final ClassifiedImages response = vrClient.classify(options).execute();
