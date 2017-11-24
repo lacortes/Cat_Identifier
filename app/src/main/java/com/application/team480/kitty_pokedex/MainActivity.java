@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private Uri imageUri;
     private String filePath;
 
+    private Button fakeButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +70,20 @@ public class MainActivity extends AppCompatActivity {
                     // If your app doesn’t have permission to access external storage, then call requestPermission
                     requestPermission();
                 }
+            }
+        });
+
+        /*
+        *
+        *   Fake Button. TESTING ONLY !!!
+        *
+         */
+        fakeButton = findViewById(R.id.fake_button);
+        fakeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = BreedInformationActivity.newIntent(MainActivity.this, "abyssinian");
+                startActivity(i);
             }
         });
     }

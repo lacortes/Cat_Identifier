@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_weight="50"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="0dp">
+
+        <TextView
+            android:id="@+id/breed_name_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:gravity="center"
+            tools:text="Name of Breed"/>
+
+        <TextView
+            android:id="@+id/breed_info_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center"
+            tools:text="@string/test_breed_info"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="25"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp">
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/rating_bar_affection"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/rating_bar_energy"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/rating_bar_friendliness"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="25"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp">
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/rating_bar_grooming"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/rating_bar_length"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/rating_bar_training"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</android.support.v7.widget.LinearLayoutCompat>
