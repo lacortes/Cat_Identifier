@@ -25,6 +25,13 @@ public class BreedInformationActivity extends AppCompatActivity {
     private String extraBreedType;
     private TextView breedNameTextView;
     private TextView breedInfoTextView;
+    private TextView affectionTextView;
+    private TextView energyTextView;
+    private TextView friendlinessTextView;
+    private TextView groomingTextView;
+    private TextView lengthTextView;
+    private TextView trainingTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,22 +41,28 @@ public class BreedInformationActivity extends AppCompatActivity {
         // Get extra passed in through intent
         extraBreedType = getIntent().getStringExtra(EXTRA_BREED_TYPE);
 
+        // Wire up TextView widgets
         breedNameTextView = (TextView) findViewById(R.id.breed_name_textview);
         breedInfoTextView = (TextView) findViewById(R.id.breed_info_textview);
+        affectionTextView = (TextView) findViewById(R.id.affection_text_view);
+        energyTextView = (TextView) findViewById(R.id.energy_text_view);
+        friendlinessTextView = (TextView) findViewById(R.id.friendliness_text_view);
+        groomingTextView = (TextView) findViewById(R.id.grooming_text_view);
+        lengthTextView = (TextView) findViewById(R.id.length_text_view);
+        trainingTextView = (TextView) findViewById(R.id.training_text_view);
 
         // Access database and get reference to path of breed
         db = FirebaseDatabase.getInstance();  // Access database
         mDatabase = db.getReference("breeds/"+extraBreedType);
 
+        // Query the database once, and retrieve the required breed info
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 KittyBreed kitty = dataSnapshot.getValue(KittyBreed.class);
                 Log.i(TAG, kitty.getBreedType());
 
-                // Set Text for views
-                breedNameTextView.setText(capitalFirstLetter( kitty.getBreedType() ));
-                breedInfoTextView.setText(kitty.getInfo());
+                configureViewsWithBreed(kitty);
             }
 
             @Override
@@ -64,11 +77,23 @@ public class BreedInformationActivity extends AppCompatActivity {
      * @param text Word to process.
      * @return String
      */
-    public String capitalFirstLetter(String text) {
+    private String capitalFirstLetter(String text) {
         String firstLetter = text.substring(0, 1).toUpperCase();
         String restOfText = text.substring(1, text.length());
 
         return firstLetter + restOfText;
+    }
+
+    private void configureViewsWithBreed(KittyBreed kitty) {
+        // Set Text for views
+        breedNameTextView.setText(capitalFirstLetter( kitty.getBreedType() ));
+        breedInfoTextView.setText(kitty.getInfo());
+        affectionTextView.setText(kitty.getAffection());
+        energyTextView.setText(kitty.getEnergy());
+        friendlinessTextView.setText(kitty.getFriendliness());
+        groomingTextView.setText(kitty.getGrooming());
+        lengthTextView.setText(kitty.getLength());
+        trainingTextView.setText(kitty.getTraining());
     }
 
     /**

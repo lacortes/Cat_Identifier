@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
+    <!--Hold Breed Name and Breed Description-->
     <LinearLayout
         android:layout_weight="50"
         android:layout_width="match_parent"
@@ -30,6 +30,7 @@
             android:gravity="center"
             tools:text="@string/test_breed_info"/>
     </LinearLayout>
+    <!--END of Hold Breed Name and Breed Description-->
 
     <LinearLayout
         android:layout_weight="25"
@@ -37,21 +38,66 @@
         android:orientation="horizontal"
         android:layout_height="0dp">
 
-        <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/rating_bar_affection"
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:orientation="vertical"
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-        <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/rating_bar_energy"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/affection_text_view"/>
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/rating_bar_affection"
+                android:max="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:orientation="vertical"
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-        <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/rating_bar_friendliness"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/energy_text_view"/>
+
+                <android.support.v7.widget.AppCompatSeekBar
+                    android:id="@+id/rating_bar_energy"
+                    android:max="5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:orientation="vertical"
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/friendliness_text_view"/>
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/rating_bar_friendliness"
+                android:max="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
     </LinearLayout>
 
     <LinearLayout
@@ -60,21 +106,65 @@
         android:orientation="horizontal"
         android:layout_height="0dp">
 
-        <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/rating_bar_grooming"
+        <android.support.v7.widget.LinearLayoutCompat
+            android:orientation="vertical"
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-        <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/rating_bar_length"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textAlignment="center"
+                android:id="@+id/grooming_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/rating_bar_grooming"
+                android:max="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:orientation="vertical"
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-        <android.support.v7.widget.AppCompatSeekBar
-            android:id="@+id/rating_bar_training"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/length_text_view"/>
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/rating_bar_length"
+                android:max="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:orientation="vertical"
             android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/training_text_view"/>
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/rating_bar_training"
+                android:max="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
     </LinearLayout>
 
 </android.support.v7.widget.LinearLayoutCompat>
