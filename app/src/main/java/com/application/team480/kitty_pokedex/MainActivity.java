@@ -72,20 +72,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        /*
-        *
-        *   Fake Button. TESTING ONLY !!!
-        *
-         */
-        fakeButton = findViewById(R.id.fake_button);
-        fakeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = BreedInformationActivity.newIntent(MainActivity.this, "abyssinian");
-                startActivity(i);
-            }
-        });
     }
 
     /**
@@ -165,8 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method is to move to Result activity after taking or picking a picture.
-     * @param filePath
-     *                  file path to the selected picture
+     * @param filePath file path to the selected picture
      */
     private void moveToResultActivity(String filePath) {
         Intent intent = new Intent(MainActivity.this, ResultActivity.class);

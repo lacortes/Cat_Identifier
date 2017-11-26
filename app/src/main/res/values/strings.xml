@@ -2,9 +2,10 @@
     <string name="app_name">Kitty_Pokedex</string>
     <string name="api_key">38738ba52fa1257fc59cf39ef7183571aca6630c</string>
     <string name="title_activity_breed_information">BreedInformationActivity</string>
-    <string name="test_breed_info">Maine Coons are highly intelligent, calm, and people-oriented cats.
-        This breed gets along well with children and other pets. Some follow their owners around the house and may even
-        enjoy playing with water or playing fetch. Maine Coons make great companions for first-time cat owners, singles,
-        families, and those with other pets. Understanding their unique needs will help keep them healthy and create a
-        strong bond between the two of you.</string>
+    <string name="affection">Affection:\t</string>
+    <string name="energy">Energy:\t</string>
+    <string name="friendliness">Friendliness:\t</string>
+    <string name="grooming">Grooming:\t</string>
+    <string name="fur_length">Fur Length:\t</string>
+    <string name="training">Training:\t</string>
 </resources>

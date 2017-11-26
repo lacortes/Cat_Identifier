@@ -3,12 +3,12 @@ package com.application.team480.kitty_pokedex;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,21 +17,33 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *  This Activity accesses the Firebase Database to retrieve information about a cat breed and displays the info.
+ *  This Activity accepts the breed info through a static method, newIntent(Context, String) (see below).
+ *
+ *  Ex: Pass the name of breed as an extra to this Activity (BreedInformationActivity) by button click, from MainActivity.
+ *      The breed found in this case is a Sphynx.
+ *      ...
+ *      fakeButton.setOnClickListener(new View.OnClickListener() {
+ *          public void onClick(View view) {
+ *              Intent i = BreedInformationActivity.newIntent(MainActivity.this, "Sphynx");
+ *              startActivity(i);
+ *      });
+ *      ...
+ */
 public class BreedInformationActivity extends AppCompatActivity {
     private static final String EXTRA_BREED_TYPE = "com.application.team480.kitty_pokedex.breed_type";
     private static String TAG = "BreedInformationActivity";
+    private ListView characteristicListView;
+    private CharacteristicListAdapter characterListAdapter;
     private FirebaseDatabase db;
     private DatabaseReference mDatabase;
     private String extraBreedType;
     private TextView breedNameTextView;
     private TextView breedInfoTextView;
-    private TextView affectionTextView;
-    private TextView energyTextView;
-    private TextView friendlinessTextView;
-    private TextView groomingTextView;
-    private TextView lengthTextView;
-    private TextView trainingTextView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +52,12 @@ public class BreedInformationActivity extends AppCompatActivity {
 
         // Get extra passed in through intent
         extraBreedType = getIntent().getStringExtra(EXTRA_BREED_TYPE);
+        Log.i(TAG, "Breed passed in: " + extraBreedType);
 
         // Wire up TextView widgets
         breedNameTextView = (TextView) findViewById(R.id.breed_name_textview);
         breedInfoTextView = (TextView) findViewById(R.id.breed_info_textview);
-        affectionTextView = (TextView) findViewById(R.id.affection_text_view);
-        energyTextView = (TextView) findViewById(R.id.energy_text_view);
-        friendlinessTextView = (TextView) findViewById(R.id.friendliness_text_view);
-        groomingTextView = (TextView) findViewById(R.id.grooming_text_view);
-        lengthTextView = (TextView) findViewById(R.id.length_text_view);
-        trainingTextView = (TextView) findViewById(R.id.training_text_view);
+        characteristicListView = (ListView) findViewById(R.id.breed_characteristic_list);
 
         // Access database and get reference to path of breed
         db = FirebaseDatabase.getInstance();  // Access database
@@ -60,9 +68,57 @@ public class BreedInformationActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 KittyBreed kitty = dataSnapshot.getValue(KittyBreed.class);
+                Log.i(TAG, "Retrieving info from Firebase Datbase ...");
                 Log.i(TAG, kitty.getBreedType());
 
-                configureViewsWithBreed(kitty);
+                breedNameTextView.setText(capitalFirstLetter( kitty.getBreedType() ));
+                breedInfoTextView.setText(kitty.getInfo());
+
+                List<Characteristic> characteristics = new ArrayList<>();
+
+                // Affection
+                Characteristic characteristic = new Characteristic();
+                characteristic.setType(CharacteristicType.AFFECTION);
+                characteristic.setScale(kitty.getAffection());
+                characteristics.add(characteristic);
+
+                // Energy
+                characteristic = new Characteristic();
+                characteristic.setType(CharacteristicType.ENERGY);
+                characteristic.setScale(kitty.getEnergy());
+                characteristics.add(characteristic);
+
+                // Friendliness
+                characteristic = new Characteristic();
+                characteristic.setType(CharacteristicType.FRIENDLINESS);
+                characteristic.setScale(kitty.getFriendliness());
+                characteristics.add(characteristic);
+
+                // Fur Length
+                characteristic = new Characteristic();
+                characteristic.setType(CharacteristicType.FUR_LENGTH);
+                characteristic.setScale(kitty.getLength());
+                characteristics.add(characteristic);
+
+                // Grooming
+                characteristic = new Characteristic();
+                characteristic.setType(CharacteristicType.GROOMING);
+                characteristic.setScale(kitty.getGrooming());
+                characteristics.add(characteristic);
+
+                // Training
+                characteristic = new Characteristic();
+                characteristic.setType(CharacteristicType.TRAINING);
+                characteristic.setScale(kitty.getTraining());
+                characteristics.add(characteristic);
+
+                Log.i(TAG, characteristics.toString());
+
+                characterListAdapter = new CharacteristicListAdapter(
+                        getApplicationContext(),
+                        R.layout.breed_characteristic_item,
+                        characteristics);
+                characteristicListView.setAdapter(characterListAdapter);
             }
 
             @Override
@@ -84,22 +140,10 @@ public class BreedInformationActivity extends AppCompatActivity {
         return firstLetter + restOfText;
     }
 
-    private void configureViewsWithBreed(KittyBreed kitty) {
-        // Set Text for views
-        breedNameTextView.setText(capitalFirstLetter( kitty.getBreedType() ));
-        breedInfoTextView.setText(kitty.getInfo());
-        affectionTextView.setText(kitty.getAffection());
-        energyTextView.setText(kitty.getEnergy());
-        friendlinessTextView.setText(kitty.getFriendliness());
-        groomingTextView.setText(kitty.getGrooming());
-        lengthTextView.setText(kitty.getLength());
-        trainingTextView.setText(kitty.getTraining());
-    }
-
     /**
-     *
-     * @param packageContext Context from which the
-     * @param breed Name of breed to request information from Firebasedatabase.
+     * This method creates an Intent, and name of breed to pass as an extra to this activity.
+     * @param packageContext Context from which the Intent is being created from.
+     * @param breed Name of breed to request information from.
      * @return Intent
      */
     public static Intent newIntent(Context packageContext, String breed) {
