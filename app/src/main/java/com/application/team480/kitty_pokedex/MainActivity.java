@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("Camera/Gallery");
         btnCamera = findViewById(R.id.Camera);
         btnGallery = findViewById(R.id.Gallery);
         // Initialize camera cameraHelper
