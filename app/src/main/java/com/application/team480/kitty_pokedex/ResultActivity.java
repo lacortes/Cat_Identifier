@@ -12,7 +12,6 @@ import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -307,6 +306,14 @@ public class ResultActivity extends AppCompatActivity {
             return null;
         }
     }
+
+    /**
+     * Make the corners of the picture round.
+     * @param bitmap
+     *              photo
+     * @return
+     *          rounded corners
+     */
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
                 bitmap.getHeight(), Bitmap.Config.ARGB_8888);

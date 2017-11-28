@@ -7,10 +7,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -47,7 +44,6 @@ public class BreedInformationActivity extends AppCompatActivity {
     private TextView breedNameTextView;
     private TextView breedInfoTextView;
     private ArrayList<Result> topFive;
-    //private String breed;
     private String filePath;
     private final int INFO = 2;
 

@@ -12,10 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-
-
 import java.util.List;
-
 
 /**
  * This class is used for result activity to display a list of result.
