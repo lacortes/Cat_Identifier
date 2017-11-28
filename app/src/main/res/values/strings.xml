@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Kitty_Pokedex</string>
     <string name="api_key">38738ba52fa1257fc59cf39ef7183571aca6630c</string>
+    <string name="title_activity_breed_information">BreedInformationActivity</string>
+    <string name="affection">Affection:\t</string>
+    <string name="energy">Energy:\t</string>
+    <string name="friendliness">Friendliness:\t</string>
+    <string name="grooming">Grooming:\t</string>
+    <string name="fur_length">Fur Length:\t</string>
+    <string name="training">Training:\t</string>
 </resources>

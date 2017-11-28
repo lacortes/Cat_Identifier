@@ -157,7 +157,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Log.i("ResultActivity", "an item is selected");
-                Intent intent = new Intent(ResultActivity.this, InfoActivity.class);
+                Intent intent = new Intent(ResultActivity.this, BreedInformationActivity.class);
                 intent.putExtra("breed", resultAdapter.getItem(position).getBreed());
                 intent.putExtra("filePath", filePath);
                 intent.putParcelableArrayListExtra("topFive", topFive);

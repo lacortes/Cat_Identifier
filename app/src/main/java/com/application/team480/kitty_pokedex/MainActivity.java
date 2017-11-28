@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private Uri imageUri;
     private String filePath;
 
+    private Button fakeButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,8 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method is to move to Result activity after taking or picking a picture.
-     * @param filePath
-     *                  file path to the selected picture
+     * @param filePath file path to the selected picture
      */
     private void moveToResultActivity(String filePath) {
         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
