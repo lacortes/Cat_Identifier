@@ -28,6 +28,8 @@
 
             <ImageView
                 android:id="@+id/breed_imageview"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:paddingRight="15dp"
                 android:paddingLeft="15dp"
                 android:paddingBottom="15dp"
@@ -41,7 +43,7 @@
 
         <TextView
             android:id="@+id/breed_info_textview"
-            android:layout_weight="25"
+            android:layout_weight="30"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingLeft="10dp"
@@ -51,14 +53,14 @@
         <ListView
             android:id="@+id/breed_characteristic_list"
             android:stackFromBottom="false"
-            android:layout_weight="25"
+            android:layout_weight="20"
             android:layout_width="match_parent"
             android:layout_height="0dp">
         </ListView>
 
         <!--Filler-->
         <TextView
-            android:layout_weight="5"
+            android:layout_weight="2"
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
