@@ -68,10 +68,6 @@ public class BreedInformationActivity extends AppCompatActivity {
             Log.i("Breed", topFive.get(i).getBreed());
         }
 
-        // Get extra passed in through intent
-        extraBreedType = getIntent().getStringExtra(EXTRA_BREED_TYPE);
-        Log.i(TAG, "Breed passed in: " + extraBreedType);
-
         // Wire up TextView widgets
         breedNameTextView = (TextView) findViewById(R.id.breed_name_textview);
         breedInfoTextView = (TextView) findViewById(R.id.breed_info_textview);
