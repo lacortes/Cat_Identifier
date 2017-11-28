@@ -3,8 +3,6 @@ package com.application.team480.kitty_pokedex;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Comparator;
-
 /**
  * Created by MingKie on 11/11/2017.
  */

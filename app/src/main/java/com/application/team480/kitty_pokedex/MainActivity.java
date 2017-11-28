@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,7 +15,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.ibm.watson.developer_cloud.android.library.camera.CameraHelper;
 import java.io.File;
@@ -35,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btnGallery;
     private Uri imageUri;
     private String filePath;
-
-    private Button fakeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
