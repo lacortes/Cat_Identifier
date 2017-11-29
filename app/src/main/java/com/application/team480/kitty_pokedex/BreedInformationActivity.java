@@ -2,11 +2,13 @@ package com.application.team480.kitty_pokedex;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,6 +47,7 @@ public class BreedInformationActivity extends AppCompatActivity {
     private TextView breedInfoTextView;
     private ArrayList<Result> topFive;
     private String filePath;
+    private ImageView breedImageView;
     private final int INFO = 2;
 
     @Override
@@ -68,6 +71,10 @@ public class BreedInformationActivity extends AppCompatActivity {
         breedNameTextView = (TextView) findViewById(R.id.breed_name_textview);
         breedInfoTextView = (TextView) findViewById(R.id.breed_info_textview);
         characteristicListView = (ListView) findViewById(R.id.breed_characteristic_list);
+
+        breedImageView = (ImageView) findViewById(R.id.breed_imageview);
+
+        breedImageView.setImageDrawable(determineBreedResource(extraBreedType));
 
         // Access database and get reference to path of breed
         db = FirebaseDatabase.getInstance();  // Access database
@@ -148,6 +155,13 @@ public class BreedInformationActivity extends AppCompatActivity {
         String restOfText = text.substring(1, text.length());
 
         return firstLetter + restOfText;
+    }
+
+    private Drawable determineBreedResource(String breed) {
+        String filtered = breed.replace(" ", "");
+        Log.i(TAG, filtered);
+
+        return getResources().getDrawable(getResources().getIdentifier(filtered, "drawable", getPackageName()));
     }
 
     /**
