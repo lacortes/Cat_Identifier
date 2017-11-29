@@ -1,6 +1,7 @@
 package com.application.team480.kitty_pokedex;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -28,7 +29,6 @@ public class CharacteristicListAdapter extends ArrayAdapter<Characteristic> {
         super(context, resource, objects);
         this.context = context;
         this.characteristics = objects;
-
     }
 
     @NonNull
@@ -37,18 +37,19 @@ public class CharacteristicListAdapter extends ArrayAdapter<Characteristic> {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.breed_characteristic_item, parent, false);
 
-        TextView characterNameTextView = (TextView) view.findViewById(R.id.character_name_text_view);
-        TextView characterNumberTextView = (TextView) view.findViewById(R.id.character_number_text_view);
-        SeekBar characterNameSeekBar = (SeekBar) view.findViewById(R.id.character_name_seek_bar);
+        TextView characterNameTextView = view.findViewById(R.id.character_name_text_view);
+        TextView characterNumberTextView = view.findViewById(R.id.character_number_text_view);
+        SeekBar characterNameSeekBar = view.findViewById(R.id.character_name_seek_bar);
+        characterNameSeekBar.getProgressDrawable().setColorFilter(0Xffff4081, PorterDuff.Mode.MULTIPLY);
 
         Characteristic characteristic = characteristics.get(position);
-
         characterNameTextView.setText(
                 formatType( characteristic.getType() )
         );
         characterNumberTextView.setText(characteristic.getScale());
         characterNameSeekBar.setProgress(Integer.parseInt( characteristic.getScale() ));
         characterNameSeekBar.setOnTouchListener(new View.OnTouchListener() {
+
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 return true;

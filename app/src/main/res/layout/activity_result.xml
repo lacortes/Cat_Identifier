@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
-        android:text="No Results Found"
+        android:text="No Cats Found   (｡•́︿•̀｡)"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="#cacaca"
         android:visibility="invisible"
