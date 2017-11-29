@@ -63,7 +63,7 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        setTitle("Result");
+        setTitle("Your Cat Result");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         noResultsFound = findViewById(R.id.noResultsTextView);
         progressBar = findViewById(R.id.loading_progress);
