@@ -7,6 +7,10 @@
 /build
 /captures
 .externalNativeBuil
+.idea/*
+.idea/misc.xml
+.idea/modules.xml
+
 
 # Built application files
 /*/build/

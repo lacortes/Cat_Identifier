@@ -8,4 +8,7 @@
     <string name="grooming">Grooming:\t</string>
     <string name="fur_length">Fur Length:\t</string>
     <string name="training">Training:\t</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="credits">Credits</string>
 </resources>
