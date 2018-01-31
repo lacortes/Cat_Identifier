@@ -13,8 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+
         android:layout_marginTop="40dp"
         android:textColor="#dfdfdf"
+        android:background="@drawable/ble"
         android:text="Developers:\n\n\n\t\t\tLuis Cortes\n\n\t\t\tSeungyun Lee\n\n\t\t\tJoey Tan\n\n\t\t\tMinen Lang"
         android:textSize="16dp"/>
 
@@ -24,7 +27,11 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="30dp"
         android:textColor="#dfdfdf"
+        android:background="@drawable/pk"
+
         android:text="Contact:\n\n\n\t\t\tkittydexteam@gmail.com\n\n\n\n\n\n\t\t\tThank you for using this app.\n\t\t\tIf you enjoy using it please rate it!  /ᐠ｡ꞈ｡ᐟ✿\"
         android:textSize="16dp"/>
 

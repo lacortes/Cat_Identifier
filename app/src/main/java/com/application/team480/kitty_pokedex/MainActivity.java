@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private CameraHelper cameraHelper;
     private Button btnCamera;
     private Button btnGallery;
+    private Button btnCredits;
     private Uri imageUri;
     private String filePath;
 
@@ -38,9 +39,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Camera/Gallery");
+        setTitle("Welcome To kittyDex");
         btnCamera = findViewById(R.id.Camera);
         btnGallery = findViewById(R.id.Gallery);
+        btnCredits = findViewById(R.id.Credits);
         // Initialize camera cameraHelper
         cameraHelper = new CameraHelper(this);
         // When Camera button is clicked
@@ -69,6 +71,20 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnCredits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Credits", "Clicked");
+                openCredits();
+                Log.d("Credits", "Ended");
+            }
+        });
+    }
+
+    public void openCredits(){
+        Intent intent = new Intent(this, Credits.class);
+        startActivity(intent);
     }
 
     /**

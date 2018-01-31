@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kitty_Pokedex</string>
+    <string name="app_name">kittyDex</string>
     <string name="api_key">38738ba52fa1257fc59cf39ef7183571aca6630c</string>
     <string name="title_activity_breed_information">BreedInformationActivity</string>
     <string name="affection">Affection:\t</string>
