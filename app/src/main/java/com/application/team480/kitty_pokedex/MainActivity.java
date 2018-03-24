@@ -1,6 +1,7 @@
 package com.application.team480.kitty_pokedex;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.widget.Button;
 
 import com.ibm.watson.developer_cloud.android.library.camera.CameraHelper;
 import java.io.File;
+import java.sql.SQLOutput;
 
 /**
  * This class is the main activity. It has two buttons: Camera and Gallery.
@@ -49,9 +52,14 @@ public class MainActivity extends AppCompatActivity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // checks whether the app has access to the camera if not then displays privacy policy
+                if(!checkPermission()) {
+                    showPrivacyDialog();
+                }
                 Log.d("Camera", "Clicked");
                 cameraHelper.dispatchTakePictureIntent();
                 Log.d("Camera", "Ended");
+
             }
         });
         // When Gallery button is clicked
@@ -61,17 +69,17 @@ public class MainActivity extends AppCompatActivity {
                 // Check whether your app has access to the WRITE permission
                 if (checkPermission()) {
                     // If your app has access to the device’s storage, then print the following message to Android Studio’s Logcat
-                    Log.e("permission", "Permission already granted.");
+                    Log.e("permission", "Permission already granted for gallery.");
                     Log.d("Gallery", "Clicked");
                     openGallery();
                     Log.d("Gallery", "Ended");
                 } else {
-                    // If your app doesn’t have permission to access external storage, then call requestPermission
-                    requestPermission();
+                    // displays privacy policy first then calls requestPermission if your app doesn’t have permission to access external storage
+                    showPrivacyDialog();
                 }
             }
         });
-
+        // When Credits button is clicked
         btnCredits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,19 +90,35 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void showPrivacyDialog(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog);
+        alert.setMessage("Any image taken by the camera or used through the gallery for breed identification are used for that purpose only."
+            + " By no means will any image data be disclosed.")
+                .setPositiveButton("I understand", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        requestPermission();
+                    }
+                })
+                .setTitle("Privacy Policy")
+                .create();
+        alert.show();
+    }
+
     public void openCredits(){
         Intent intent = new Intent(this, Credits.class);
         startActivity(intent);
     }
 
     /**
-     * This method checks if the user granted to access gallery.
+     * This method checks if the user is granted access to gallery and camera.
      * @return
-     *          true, if the permission is granted; otherwise, false.
+     *          returns true, if the permission is granted; otherwise, false.
      */
     private boolean checkPermission() {
         //Check for READ_EXTERNAL_STORAGE access, using ContextCompat.checkSelfPermission()//
-        int result = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int result;
+        result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         //If the app does have this permission, then return true//
         if (result == PackageManager.PERMISSION_GRANTED) {
             return true;
@@ -108,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
      * This method requests the user for a permission to access gallery.
      */
     private void requestPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
     }
 
     /**
