@@ -52,14 +52,15 @@ public class MainActivity extends AppCompatActivity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // checks whether the app has access to the camera if not then displays privacy policy
-                if(!checkPermission()) {
-                    showPrivacyDialog();
+                // checks whether the app is runned the first time
+                if(isFirstRun()) {
+                    // shows a privacy polciy dialog if true otherwise runs the camera
+                    showPrivacyDialog(0);
+                } else {
+                    Log.d("Camera", "Clicked");
+                    cameraHelper.dispatchTakePictureIntent();
+                    Log.d("Camera", "Ended");
                 }
-                Log.d("Camera", "Clicked");
-                cameraHelper.dispatchTakePictureIntent();
-                Log.d("Camera", "Ended");
-
             }
         });
         // When Gallery button is clicked
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("Gallery", "Ended");
                 } else {
                     // displays privacy policy first then calls requestPermission if your app doesn’t have permission to access external storage
-                    showPrivacyDialog();
+                    showPrivacyDialog(1);
                 }
             }
         });
@@ -90,24 +91,45 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void showPrivacyDialog(){
+    /**
+     * This method is to open gallery.
+     */
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, PICK_IMAGE);
+    }
+
+    private void showPrivacyDialog(final int type){
         AlertDialog.Builder alert = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog);
         alert.setMessage("Any image taken by the camera or used through the gallery for breed identification are used for that purpose only."
             + " By no means will any image data be disclosed.")
                 .setPositiveButton("I understand", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
-                        requestPermission();
+                        if(type == 1) {
+                            // requests permission only for gallery
+                            requestPermission();
+                        } else {
+                            Log.d("Camera", "Clicked");
+                            cameraHelper.dispatchTakePictureIntent();
+                            Log.d("Camera", "Ended");
+                        }
                     }
                 })
                 .setTitle("Privacy Policy")
                 .create();
         alert.show();
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                .putBoolean("isFirstRun", false).apply();
     }
 
-    public void openCredits(){
+    private void openCredits(){
         Intent intent = new Intent(this, Credits.class);
         startActivity(intent);
+    }
+
+    private boolean isFirstRun(){
+        return getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
     }
 
     /**
@@ -135,14 +157,6 @@ public class MainActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
     }
 
-    /**
-     * This method is to open gallery.
-     */
-    private void openGallery() {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE);
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -158,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
